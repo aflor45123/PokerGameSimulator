@@ -1,0 +1,13 @@
+.mainTitle{
+	-fx-font-size: 40px;
+	-fx-fill: white;
+}
+
+.subTitle{
+	-fx-font-size: 30px;
+	-fx-fill: white;
+}
+
+.border {
+	-fx-background-color: DarkSlateGrey;
+}

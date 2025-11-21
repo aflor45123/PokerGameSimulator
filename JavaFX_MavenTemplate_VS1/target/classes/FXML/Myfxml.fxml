@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.shape.Rectangle?>
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" styleClass="borderpane" fx:controller = "GameServer"
+	fx:id = "root">
+	
+	<center>
+		<StackPane>
+			
+			<!-- Created rectangular backdrop -->
+			<Rectangle fx:id = "rect" width = "500" height = "400" arcWidth = "20" arcHeight = "20" 
+				styleClass = "rect"/>
+			
+			<!-- Centered mainTitle text -->
+			<VBox alignment = "TOP_CENTER" StackPane.alignment = "TOP_CENTER">
+				<Text fx:id = "mainTitle" text = "3 Card Poker Manager" styleClass = "mainTitle"/>
+			</VBox>
+			
+			<!-- Created subTitle text for Create a Server -->
+			<Text fx:id = "subTitle" text = "Create a Server" styleClass = "subTitle" 
+				StackPane.alignment = "CENTER" translateY = "-170"/>
+			
+			<!-- Created inputText text for Input Port Number -->
+			<Text fx:id = "inputText" text = "Input Port Number:" styleClass = "regular" 
+				StackPane.alignment = "CENTER" translateX = "-150" translateY = "-80"/>
+			
+			<!-- TextField made for user to enter port number -->
+			<TextField fx:id = "textField" promptText = "Enter port # here" StackPane.alignment = "CENTER" 
+				prefWidth = "100" maxWidth = "200" translateX = "50" translateY = "-80"/>
+			
+			<!-- Changes scene to Server Information-->
+			<Button fx:id = "createButton" text = "Start Server" StackPane.alignment = "CENTER" 
+				translateY = "120" onAction = "#createServer"/>
+
+		</StackPane>
+	</center>
+	
+</BorderPane>

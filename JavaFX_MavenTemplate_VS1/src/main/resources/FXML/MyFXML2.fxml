@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Button?>
+
+
+
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" 
+              fx:id = "root2" styleClass="border" fx:controller = "GameServer">
+	
+	<center>
+		<StackPane>
+			
+			<!-- Centered mainTitle text -->
+			<VBox alignment = "TOP_CENTER" StackPane.alignment = "TOP_CENTER">
+				<Text fx:id = "mainTitle" text = "Server Information" styleClass = "mainTitle"/>
+			</VBox>
+			
+			<!-- Created subTitle text for Client Log History -->
+			<Text fx:id = "subTitle" text = "Client Log History" styleClass = "subTitle" 
+				StackPane.alignment = "CENTER_LEFT" translateY = "-170"/>
+			
+			<!-- ListView for serverLog information -->
+			<ListView fx:id = "serverLog" prefWidth = "200" prefHeight = "220" maxWidth = "250" maxHeight = "220"
+				translateX = "-325" translateY = "-40"/>
+			
+			<!-- Created subTitle2 text for Clients -->
+			<Text fx:id = "subTitle2" text = "Clients" styleClass = "subTitle" StackPane.alignment = "CENTER"
+				translateY = "-170"/>
+			
+			<!-- ListView for clients in server -->
+			<ListView fx:id = "clients" prefWidth = "100" prefHeight= "175" maxWidth = "100" maxHeight = "175"
+				translateY = "-60"/>
+			
+			<!-- Created subTitle for text for Client Game Info -->
+			<Text fx:id = "subTitle3" text = "Client #: Game Info" styleClass = "subTitle"
+				StackPane.alignment = "CENTER_RIGHT" translateY = "-170"/>
+				
+			<!-- ListView for client game log -->
+			<ListView fx:id = "gameInfo" prefWidth = "200" prefHeight = "220" maxWidth = "250" maxHeight = "220"
+				translateX = "325" translateY = "-40"/>
+			
+			<!-- Created subTitle text for num of clients -->
+			<Text fx:id = "subTitle4" text = "Clients in server:" styleClass = "subTitle"
+				StackPane.alignment = "CENTER_LEFT" translateY = "100"/>
+			
+			<!-- Changes scene back to Create a Server-->
+			<Button fx:id = "introButton" text = "Shutdown Server" StackPane.alignment = "CENTER"
+				translateY = "180" onAction = "#backToStart"/>
+			
+		</StackPane>
+	</center>
+
+</BorderPane>
+

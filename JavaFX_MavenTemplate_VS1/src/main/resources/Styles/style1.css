@@ -1,0 +1,33 @@
+.root{
+	-fx-font-family: "Arial";
+}
+
+.mainTitle{
+	-fx-font-size: 40px;
+}
+
+.subTitle{
+	-fx-font-size: 30px;
+	-fx-fill: white;
+}
+
+.regular{
+	-fx-font-size: 20px;
+	-fx-fill: white;
+}
+
+.rect{
+	-fx-fill: DarkSlateGrey;
+	-fx-stroke: black;
+	-fx-stroke-width: 3;
+}
+
+.button{
+	-fx-font-size: 25px;
+	-fx-font-weight: bold;
+	-fx-background-color: white;
+}
+
+.borderpane{
+	-fx-background-color: grey;
+}
