@@ -1,0 +1,23 @@
+.title { -fx-font-size: 22px; -fx-font-weight: bold; }
+.subtitle { -fx-text-fill: #666; }
+.center{-fx-background-color: black;}
+.borderpane{
+	-fx-background-color: black;
+}
+.Vbox{-fx-background-color: black;}
+.section { -fx-font-weight: bold; -fx-padding: 0 0 4 0; }
+.footer { -fx-text-fill: #888; -fx-padding: 6 10 10 10; }
+.toolbar { -fx-background-color: linear-gradient(to bottom, DarkSlateGrey, DarkSlateGrey); }
+.footerbar { -fx-background-color: DarkSlateGrey; }
+.badge {
+  -fx-background-color: #0a84ff; -fx-text-fill: white; -fx-padding: 2 8 2 8;
+  -fx-background-radius: 999;
+}
+.status-offline { -fx-text-fill: black; -fx-font-weight: bold; }
+.status-online  { -fx-text-fill: black; -fx-font-weight: bold; }
+.danger { -fx-background-color: black; -fx-text-fill: white; }
+.root {
+    -fx-background-color: DarkSlateGrey; 
+}
+.label{-fx-text-fill: black; -fx-font-weight: bold;}
+.CheckBox{-fx-text-fill: black;}
