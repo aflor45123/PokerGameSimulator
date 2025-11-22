@@ -1,0 +1,9 @@
+.borderpane{
+	-fx-background-color: grey;
+}
+
+.rect{
+	-fx-fill: DarkSlateGrey;
+	-fx-stroke: black;
+	-fx-stroke-width: 3;
+}
