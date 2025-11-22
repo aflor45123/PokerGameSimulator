@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ServerIntroController"
+            prefWidth="460" prefHeight="280" stylesheets="@../Styles/server.css">
+
+    <center>
+        <VBox spacing="14" alignment="CENTER">
+            <children>
+                <Label text="3-Card Poker — Server" styleClass="title"/>
+                <Label text="Choose a port and start the server." styleClass="subtitle"/>
+
+                <GridPane hgap="10" vgap="10">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="RIGHT" minWidth="120"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+                    <children>
+                        <Label text="Port:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="portField" promptText="e.g. 5000" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <CheckBox fx:id="autoStartCheckbox" text="Start immediately" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    </children>
+                </GridPane>
+
+                <HBox spacing="10">
+                    <children>
+                        <Button text="Start Server" onAction="#handleStart"/>
+                        <Button text="Exit" onAction="#handleExit" styleClass="danger"/>
+                    </children>
+                </HBox>
+            </children>
+            <padding><Insets top="24" right="24" bottom="24" left="24"/></padding>
+        </VBox>
+    </center>
+
+    <bottom>
+        <Label text="Requirement: This screen only sets up the server. Next screen shows live state."
+               BorderPane.alignment="CENTER" styleClass="footer"/>
+    </bottom>
+</BorderPane>
