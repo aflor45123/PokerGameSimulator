@@ -38,6 +38,10 @@ public class ServerIntroController {
             Scene scene = new Scene(root);
             scene.getStylesheets().add(getClass().getResource("/Styles/server.css").toExternalForm());
             stage.setScene(scene);
+            
+            if (autoStartCheckbox.isSelected()) {
+                controller.startServer();
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();

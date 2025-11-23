@@ -61,15 +61,40 @@ public class ServerDashboardController implements ServerEventListener {
     }
 
     private void log(String msg) {
-        Platform.runLater(() -> {
-            eventList.getItems().add(msg);
-            if (autoscrollCheck.isSelected())
-                eventList.scrollTo(eventList.getItems().size() - 1);
-        });
+        eventList.getItems().add(msg);
+        if (autoscrollCheck.isSelected()) {
+            eventList.scrollTo(eventList.getItems().size() - 1);
+        }
     }
 
     @Override
     public void onEvent(ServerEvent event) {
-        log(event.type() + " : " + event.clientName());
+        Platform.runLater(() -> {
+            switch (event.type()) {
+
+                case CLIENT_JOIN:
+                    clientCountLabel.setText(String.valueOf(event.connectedCount()));
+                    log("JOIN — " + event.clientName());
+                    break;
+
+                case CLIENT_LEFT:
+                    clientCountLabel.setText(String.valueOf(event.connectedCount()));
+                    log("LEFT — " + event.clientName());
+                    break;
+
+                case MESSAGE:
+                    String who = event.clientName() != null ? event.clientName() : "SERVER";
+                    log(who + ": " + event.message());
+                    break;
+
+                case SERVER_ERROR:
+                    log("ERROR — " + event.message());
+                    break;
+
+                default:
+                    log(event.type() + " — " + event.clientName());
+                    break;
+            }
+        });
     }
 }

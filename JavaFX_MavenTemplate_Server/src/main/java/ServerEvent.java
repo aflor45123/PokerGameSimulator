@@ -22,31 +22,28 @@ public class ServerEvent {
         this.message = message;
     }
 
-    // "record-style" accessors so existing code event.type() still works
-    public ServerEventType type() {
-        return type;
-    }
+    public ServerEventType type()      { return type; }
+    public UUID clientId()             { return clientId; }
+    public String clientName()         { return clientName; }
+    public int connectedCount()        { return connectedCount; }
+    public String message()            { return message; }
 
-    public UUID clientId() {
-        return clientId;
-    }
-
-    public String clientName() {
-        return clientName;
-    }
-
-    public int connectedCount() {
-        return connectedCount;
-    }
-
-    public String message() {
-        return message;
-    }
-
-    // Factory helpers used in GameServer / controller
+    // --- Factory helpers ---
 
     public static ServerEvent join(UUID id, String name, int count) {
         return new ServerEvent(ServerEventType.CLIENT_JOIN, id, name, count, null);
+    }
+
+    public static ServerEvent left(UUID id, String name, int count) {
+        return new ServerEvent(ServerEventType.CLIENT_LEFT, id, name, count, null);
+    }
+
+    public static ServerEvent message(UUID id, String name, int count, String msg) {
+        return new ServerEvent(ServerEventType.MESSAGE, id, name, count, msg);
+    }
+
+    public static ServerEvent serverMessage(String msg, int count) {
+        return new ServerEvent(ServerEventType.MESSAGE, null, "SERVER", count, msg);
     }
 
     public static ServerEvent error(String msg) {
