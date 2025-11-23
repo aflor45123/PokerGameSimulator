@@ -4,8 +4,14 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.HBox?>
+
 
 
 
@@ -13,32 +19,45 @@
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" styleClass="borderpane" fx:controller = "SingleGame"
 	fx:id="root">
 	
+	<!-- Created Options menu -->
+	<top>
+		<HBox alignment = "CENTER">
+			<MenuBar>
+				<Menu text = "Options">
+					<MenuItem text = "Exit" onAction = "#backToWelcome"/>
+					<MenuItem text = "Fresh Start"/>
+					<MenuItem text = "New Look" onAction = "#getNewLook"/>
+				</Menu>
+			</MenuBar>
+		</HBox>
+	</top>
+	
 	<center>
 		<StackPane>
 			
 			<!-- Created rectangular backdrop for main title -->
-			<Rectangle fx:id = "rect" width = "500" height = "400" arcWidth = "20" arcHeight = "20"
+			<Rectangle fx:id = "rect" width = "300" height = "50" arcWidth = "20" arcHeight = "20"
+				StackPane.alignment = "TOP_CENTER" translateY = "50" styleClass = "rect"/>
+			
+			<!-- Created rectangular backdrop for results area -->
+			<Rectangle fx:id = "rect" width = "500" height = "350" arcWidth = "20" arcHeight = "20"
 				styleClass = "rect"/>
+			
+			<!-- Created text for main title -->
+			<Text fx:id = "title" text = "You ____!" styleClass = "title1" 
+				StackPane.alignment = "TOP_CENTER" translateY = "50"/>
 				
-			<!-- Created inputText text for Input Port Number -->
-			<Text fx:id = "inputText" text = "Input Port Number:" styleClass = "regular" 
-				StackPane.alignment = "CENTER" translateX = "-150" translateY = "-80"/>
-			
-			<!-- TextField made for user to enter port number -->
-			<TextField fx:id = "importNum" promptText = "Enter port # here" StackPane.alignment = "CENTER" 
-				prefWidth = "100" maxWidth = "200" translateX = "50" translateY = "-80"/>
-			
-			<!-- Created inputText text for Input IP address -->
-			<Text fx:id = "inputText1" text = "Input IP address:" styleClass = "regular" 
-				StackPane.alignment = "CENTER" translateX = "-150" translateY = "-40"/>
-			
-			<!-- TextField made for user to enter IP address -->
-			<TextField fx:id = "ipAddress" promptText = "Enter IP address here" StackPane.alignment = "CENTER" 
-				prefWidth = "100" maxWidth = "200" translateX = "50" translateY = "-40"/>
+			<!-- ListView for results -->
+			<ListView fx:id = "results" prefWidth = "300" prefHeight = "200" maxWidth = "300" maxHeight = "200"
+				StackPane.alignment = "CENTER" translateY = "-60" styleClass = "listView"/> 
+
+			<!-- Changes scene to play screen-->
+			<Button fx:id = "playGame" text = "Play Again" StackPane.alignment = "CENTER" 
+				translateX = "-100" translateY = "125" styleClass = "playButton1" onAction = "#startRound"/>
 			
 			<!-- Changes scene to welcome screen-->
-			<Button fx:id = "gameResults" text = "Connect to Server" StackPane.alignment = "CENTER" 
-				translateY = "120" onAction = "#backToWelcome"/>
+			<Button fx:id = "welcomeBack" text = "Exit Game" StackPane.alignment = "CENTER" 
+				translateX = "100" translateY = "125" styleClass = "welcomeButton" onAction = "#backToWelcome"/>
 			
 			
 				

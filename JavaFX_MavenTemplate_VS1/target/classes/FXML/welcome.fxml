@@ -17,32 +17,38 @@
 		<StackPane>
 			
 			<!-- Created rectangular backdrop for main title -->
-			<Rectangle fx:id = "rect" width = "500" height = "400" arcWidth = "20" arcHeight = "20"
+			<Rectangle fx:id = "rect" width = "300" height = "100" arcWidth = "20" arcHeight = "20"
+				StackPane.alignment = "TOP_CENTER" translateY = "50" styleClass = "rect"/>
+			
+			<!-- Created text for main title -->
+			<Text fx:id = "title" text = "Welcome to" styleClass = "title" 
+				StackPane.alignment = "TOP_CENTER" translateY = "50"/>
+			<Text fx:id = "title" text = "3 Card Poker!" styleClass = "title" 
+				StackPane.alignment = "TOP_CENTER" translateY = "90"/>
+			
+			<!-- Created rectangular backdrop for input area -->
+			<Rectangle fx:id = "rect" width = "500" height = "250" arcWidth = "20" arcHeight = "20"
 				styleClass = "rect"/>
-				
+
 			<!-- Created inputText text for Input Port Number -->
 			<Text fx:id = "inputText" text = "Input Port Number:" styleClass = "regular" 
-				StackPane.alignment = "CENTER" translateX = "-150" translateY = "-80"/>
+				StackPane.alignment = "CENTER" translateX = "-150" translateY = "-100"/>
 			
 			<!-- TextField made for user to enter port number -->
 			<TextField fx:id = "importNum" promptText = "Enter port # here" StackPane.alignment = "CENTER" 
-				prefWidth = "100" maxWidth = "200" translateX = "50" translateY = "-80"/>
+				prefWidth = "100" maxWidth = "200" translateX = "50" translateY = "-100"/>
 			
 			<!-- Created inputText text for Input IP address -->
 			<Text fx:id = "inputText1" text = "Input IP address:" styleClass = "regular" 
-				StackPane.alignment = "CENTER" translateX = "-150" translateY = "-40"/>
+				StackPane.alignment = "CENTER" translateX = "-150" translateY = "-60"/>
 			
 			<!-- TextField made for user to enter IP address -->
 			<TextField fx:id = "ipAddress" promptText = "Enter IP address here" StackPane.alignment = "CENTER" 
-				prefWidth = "100" maxWidth = "200" translateX = "50" translateY = "-40"/>
+				prefWidth = "100" maxWidth = "200" translateX = "50" translateY = "-60"/>
 			
 			<!-- Changes scene to gamePlay screen-->
 			<Button fx:id = "playGame" text = "Connect to Server" StackPane.alignment = "CENTER" 
-				translateY = "120" onAction = "#startRound"/>
-			
-			
-				
-			
+				translateY = "60" styleClass = "button" onAction = "#startRound"/>
 			
 		
 		</StackPane>

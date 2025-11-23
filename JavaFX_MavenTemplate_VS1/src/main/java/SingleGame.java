@@ -12,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Circle;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.ListView;
 import javafx.scene.text.Text;
@@ -31,19 +32,34 @@ public class SingleGame implements Initializable {
 	private BorderPane root3;
 	
 	@FXML
-	private TextField importNum;
-	
-	@FXML
-	private TextField ipAddress;
-	
-	@FXML
 	private Rectangle rect;
+	
+	@FXML
+	private Circle circ;
 	
 	@FXML
 	private StackPane stackpane;
 	
 	@FXML
+	private Text title;
+	
+	@FXML
 	private Text inputText;
+	
+	@FXML
+	private ListView<String> gameLog;
+	
+	@FXML
+	private ListView<String> anteList;
+	
+	@FXML
+	private ListView<String> pairPlusList;
+	
+	@FXML
+	private ListView<String> playList;
+	
+	@FXML
+	private ListView<String> results;
 	
 	@FXML
 	private Button playGame;
@@ -51,10 +67,83 @@ public class SingleGame implements Initializable {
 	@FXML
 	private Button gameResults;
 	
+	@FXML
+	private Button welcomeBack;
+	
+	
+	@FXML
+	private TextField importNum;
+	
+	@FXML
+	private TextField ipAddress;
+	
+	@FXML
+	private TextField pairPlusWager;
+	
+	@FXML
+	private TextField anteWager;
+	
+	@FXML
+	private TextField playWager;
+	
+	private boolean newLookSet = false;
+	
+	
+	
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		if (gameLog != null) {
+			ObservableList<String> emptySlots = FXCollections.observableArrayList();
+		
+			for (int i = 0; i < 5; i++) {
+				emptySlots.add("");
+			}
+		
+			gameLog.setItems(emptySlots);
+		}
+		
+		if (anteList != null) {
+			ObservableList<String> emptySlots = FXCollections.observableArrayList();
+		
+			for (int i = 0; i < 5; i++) {
+				emptySlots.add("");
+			}
+		
+			anteList.setItems(emptySlots);
+		}
+		
+		if (pairPlusList != null) {
+			ObservableList<String> emptySlots = FXCollections.observableArrayList();
+		
+			for (int i = 0; i < 5; i++) {
+				emptySlots.add("");
+			}
+		
+			pairPlusList.setItems(emptySlots);
+		}
+		
+		if (playList != null) {
+			ObservableList<String> emptySlots = FXCollections.observableArrayList();
+		
+			for (int i = 0; i < 5; i++) {
+				emptySlots.add("");
+			}
+		
+			playList.setItems(emptySlots);
+		}
+		
+		if (results != null) {
+			ObservableList<String> emptySlots = FXCollections.observableArrayList();
+		
+			for (int i = 0; i < 5; i++) {
+				emptySlots.add("");
+			}
+		
+			results.setItems(emptySlots);
+		}
 	}
 	
 	public void startRound(ActionEvent e) throws IOException{
@@ -82,6 +171,7 @@ public class SingleGame implements Initializable {
 		
 	}
 	
+	
 	public void backToWelcome(ActionEvent e) throws IOException{
 		
 		// Get instance of the loader class
@@ -93,4 +183,20 @@ public class SingleGame implements Initializable {
 		        
 		root.getScene().setRoot(rootA);
 	}
+	
+	public void getNewLook(ActionEvent e) throws IOException{
+		
+		root.getStylesheets().clear();
+		
+		if (newLookSet == false) {
+			root.getStylesheets().add("/styles/newLook.css");
+		}
+		else {
+			root.getStylesheets().add("/styles/gamePlay.css");
+		}
+		
+		newLookSet = !newLookSet;
+	}
+	
+	
 }
