@@ -149,17 +149,22 @@
 				maxWidth = "50" translateX = "-25" translateY = "170"/>
 				
 			<!-- Created Deal button -->
-			<Button text = "dealButton" StackPane.alignment = "BOTTOM_CENTER" 
-				translateX = "-150" translateY = "-20" styleClass = "dealButton" onAction = "#startDeal"/>
-	
+			<Button fx:id="dealButton" text="Deal" StackPane.alignment="BOTTOM_CENTER"
+        		translateX="-150" translateY="-20"
+        		styleClass="dealButton"
+        		onAction="#startDeal"/>
+
 			<!-- Created Play -->
-			<Button fx:id = "settle" text = "Play" StackPane.alignment = "BOTTOM_CENTER" 
-				translateY = "-20" styleClass = "playButton" onAction = "#settle"/>
-			
+			<Button fx:id="playButton" text="Play" StackPane.alignment="BOTTOM_CENTER"
+        		translateY="-20"
+        		styleClass="playButton"
+        		onAction="#settle"/>
+
 			<!-- Created Fold button -->
-			<Button fx:id = "settle" text = "Fold" StackPane.alignment = "BOTTOM_CENTER" 
-				translateX = "150" translateY = "-20" styleClass = "foldButton" onAction = "#settle"/>
-				
+			<Button fx:id="foldButton" text="Fold" StackPane.alignment="BOTTOM_CENTER"
+        		translateX="150" translateY="-20"
+        		styleClass="foldButton"
+        		onAction="#settle"/>		
 		</StackPane>
 	</center>
 	
