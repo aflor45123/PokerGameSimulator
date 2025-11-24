@@ -16,7 +16,7 @@
 
 
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" styleClass="borderpane" fx:controller = "SingleGame"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" styleClass="borderpane" fx:controller = "GamePlayController"
 	fx:id="root">
 	
 	<!-- Created Options menu -->
@@ -27,7 +27,6 @@
 					<MenuItem text = "Exit" onAction = "#backToWelcome"/>
 					<MenuItem text = "Fresh Start"/>
 					<MenuItem text = "New Look" onAction = "#getNewLook"/>
-					<MenuItem text="Send Test" onAction="#sendTestMessage"/>
 				</Menu>
 			</MenuBar>
 		</HBox>
@@ -55,27 +54,27 @@
 			
 			<!-- Created a card1 for dealer -->
 			<StackPane fx:id = "card1" prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
-				translateX = "-140" translateY = "-170" styleClass = "card1"/>
+				translateX = "-140" translateY = "-170" styleClass = "card"/>
 			
 			<!-- Created a card2 for dealer -->
-			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
-				translateY = "-170" styleClass = "card2"/>
+			<StackPane fx:id = "card2" prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateY = "-170" styleClass = "card"/>
 			
 			<!-- Created a card3 for dealer -->
-			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
-				translateX = "140" translateY = "-170" styleClass = "card3"/>
+			<StackPane fx:id = "card3" prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateX = "140" translateY = "-170" styleClass = "card"/>
 				
 			<!-- Created a card4 for player -->
-			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
-				translateX = "-140" translateY = "100" styleClass = "card4"/>
+			<StackPane fx:id = "card4" prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateX = "-140" translateY = "100" styleClass = "card"/>
 			
 			<!-- Created a card5 for player -->
-			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
-				translateY = "100" styleClass = "card5"/>
+			<StackPane fx:id = "card5" prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateY = "100" styleClass = "card"/>
 			
 			<!-- Created a card6 for player -->
-			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
-				translateX = "140" translateY = "100" styleClass = "card6"/>
+			<StackPane fx:id = "card6" prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateX = "140" translateY = "100" styleClass = "card"/>
 			
 			<!-- Set text for Game Log -->
 			<Text fx:id = "title" text = "Game Log" styleClass = "sideTitle" 
@@ -150,8 +149,8 @@
 				maxWidth = "50" translateX = "-25" translateY = "170"/>
 				
 			<!-- Created Deal button -->
-			<Button fx:id = "settle" text = "Deal" StackPane.alignment = "BOTTOM_CENTER" 
-				translateX = "-150" translateY = "-20" styleClass = "dealButton" onAction = "#settle"/>
+			<Button text = "dealButton" StackPane.alignment = "BOTTOM_CENTER" 
+				translateX = "-150" translateY = "-20" styleClass = "dealButton" onAction = "#startDeal"/>
 	
 			<!-- Created Play -->
 			<Button fx:id = "settle" text = "Play" StackPane.alignment = "BOTTOM_CENTER" 

@@ -10,7 +10,7 @@
 
 
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" styleClass="borderpane" fx:controller = "SingleGame"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" styleClass="borderpane" fx:controller = "WelcomeController"
 	fx:id="root">
 	
 	<center>
