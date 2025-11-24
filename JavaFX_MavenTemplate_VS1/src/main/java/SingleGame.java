@@ -21,7 +21,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.application.Platform;
 
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
+import javafx.scene.control.Alert;
 
 
 public class SingleGame implements Initializable {
@@ -102,6 +105,10 @@ public class SingleGame implements Initializable {
 	
 	private ClientConnection connection; 
 	
+	private static ClientConnection sharedConnection;
+	private static String sharedHost;
+	private static int sharedPort;
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -159,36 +166,50 @@ public class SingleGame implements Initializable {
 		}
 	}
 	
-	public void startRound(ActionEvent e) throws IOException{
-		
-		// 1. Read host + port from welcome screen text fields
+	public void startRound(ActionEvent e) throws IOException {
+
+	    // 1. Read host + port from welcome screen text fields
 	    String host = "127.0.0.1";
 	    if (ipAddress != null && !ipAddress.getText().trim().isEmpty()) {
 	        host = ipAddress.getText().trim();
 	    }
 
-	    int port = 0;
+	    int port = 5000; // default
 	    if (importNum != null && !importNum.getText().trim().isEmpty()) {
 	        try {
 	            port = Integer.parseInt(importNum.getText().trim());
 	        } catch (NumberFormatException ex) {
-	            port = 5000; // default / fallback
+	            // fall back to default 5000
+	            port = 5000;
 	        }
-	    } else {
-	        port = 5000;
 	    }
 
-	    // 2. Load the gamePlay scene
+	    // 2. Try a quick connection test BEFORE changing scenes
+	    try (Socket testSocket = new Socket()) {
+	        // 2000 ms timeout so the UI doesn’t hang too long
+	        testSocket.connect(new InetSocketAddress(host, port), 2000);
+	    } catch (IOException ex) {
+	        // Could not connect: stay on welcome/results screen and show an error dialog
+	        Alert alert = new Alert(Alert.AlertType.ERROR);
+	        alert.setTitle("Connection Failed");
+	        alert.setHeaderText("Could not connect to server");
+	        alert.setContentText("Please check the IP address, port number, and make sure the server is running.\n\n"
+	                           + "Details: " + ex.getMessage());
+	        alert.showAndWait();
+	        return; // <-- do NOT switch scenes
+	    }
+
+	    // 3. If we get here, connection test succeeded, so load the gamePlay scene
 	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/gamePlay.fxml"));
 	    Parent root2 = loader.load();
 
-	    // 3. Get the new controller instance for gamePlay.fxml
+	    // 4. Get the new controller instance for gamePlay.fxml
 	    SingleGame gameController = loader.getController();
 
-	    // 4. Connect this new controller to the server
+	    // 5. Connect this new controller to the server (real ClientConnection thread)
 	    gameController.connectToServer(host, port);
 
-	    // 5. Apply stylesheet and swap the scene root
+	    // 6. Apply stylesheet and swap the scene root
 	    root2.getStylesheets().add("/styles/gamePlay.css");
 	    root.getScene().setRoot(root2);
         
