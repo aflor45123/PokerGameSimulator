@@ -66,13 +66,12 @@
 	-fx-stroke-width: 3;
 }
 
-.card1{
-	-fx-background-image: url(""); +
-	-fx-background-size: cover; +
-	-fx-background-repeat: no-repeat; +
-	-fx-border-color: Cyan; +
+.card{
+	-fx-border-color: Cyan;
 	-fx-border-width: 2;
 }
+
+		
 
 .circ{
 	-fx-fill: radial-gradient(center 50% 50%, radius 50%, Red, Orange);

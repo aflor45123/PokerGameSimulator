@@ -5,6 +5,13 @@
 	-fx-background-position: center;
 }
 
+.card{
+	-fx-border-color: SlateBlue;
+	-fx-border-width: 2;
+}
+
+
+
 .title{
 	-fx-font-size: 30px;
 	-fx-fill: white;
