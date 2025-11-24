@@ -22,13 +22,13 @@ public class ServerEvent {
         this.message = message;
     }
 
-    public ServerEventType type()      { return type; }
-    public UUID clientId()             { return clientId; }
-    public String clientName()         { return clientName; }
-    public int connectedCount()        { return connectedCount; }
-    public String message()            { return message; }
+    public ServerEventType type() { return type; }
+    public UUID clientId() { return clientId; }
+    public String clientName() { return clientName; }
+    public int connectedCount() { return connectedCount; }
+    public String message() { return message; }
 
-    // --- Factory helpers ---
+    // Factory helpers used in GameServer / controller
 
     public static ServerEvent join(UUID id, String name, int count) {
         return new ServerEvent(ServerEventType.CLIENT_JOIN, id, name, count, null);
@@ -38,15 +38,11 @@ public class ServerEvent {
         return new ServerEvent(ServerEventType.CLIENT_LEFT, id, name, count, null);
     }
 
-    public static ServerEvent message(UUID id, String name, int count, String msg) {
-        return new ServerEvent(ServerEventType.MESSAGE, id, name, count, msg);
-    }
-
-    public static ServerEvent serverMessage(String msg, int count) {
-        return new ServerEvent(ServerEventType.MESSAGE, null, "SERVER", count, msg);
-    }
-
     public static ServerEvent error(String msg) {
         return new ServerEvent(ServerEventType.SERVER_ERROR, null, null, 0, msg);
+    }
+
+    public static ServerEvent info(String msg) {
+        return new ServerEvent(ServerEventType.ROUND_RESULT, null, null, 0, msg);
     }
 }
