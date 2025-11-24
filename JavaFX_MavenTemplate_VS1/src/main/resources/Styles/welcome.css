@@ -1,0 +1,39 @@
+.borderpane{
+	-fx-background-image: url("/images/outerSpace.jpg");
+	-fx-background-size: cover;
+	-fx-background-repeat: no-repeat;
+	-fx-background-position: center;
+}
+
+.title{
+	-fx-font-size: 40px;
+	-fx-fill: white;
+}
+
+.regular{
+	-fx-font-size: 20px;
+	-fx-fill: white;
+}
+
+.button{
+	-fx-font-size: 25px;
+	-fx-text-fill: lime;
+	-fx-font-weight: bold;
+	-fx-background-color: black;
+	-fx-border-color: lime;
+	-fx-border-width: 3;
+	-fx-background-radius: 10;
+	-fx-border-radius: 10;
+	-fx-padding: 10;
+	-fx-background-insets: 1;
+	-fx-border-insets: 0;
+}
+
+
+
+
+.rect{
+	-fx-fill: black;
+	-fx-stroke: cyan;
+	-fx-stroke-width: 3;
+}
