@@ -1,3 +1,5 @@
+import java.util.Map;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -16,6 +18,8 @@ public class JavaFXTemplate extends Application {
 	//feel free to remove the starter code from this method
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+				
+			
 		
 		try {
 			Parent root = FXMLLoader.load(getClass().getResource("/FXML/welcome.fxml"));
