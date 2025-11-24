@@ -26,6 +26,9 @@ import java.net.Socket;
 
 import javafx.scene.control.Alert;
 
+import javafx.scene.control.Alert.AlertType;
+
+
 
 public class SingleGame implements Initializable {
 	
@@ -103,11 +106,7 @@ public class SingleGame implements Initializable {
 	
 	private boolean newLookSet = false;
 	
-	private ClientConnection connection; 
 	
-	private static ClientConnection sharedConnection;
-	private static String sharedHost;
-	private static int sharedPort;
 	
 	
 	@Override
@@ -168,81 +167,38 @@ public class SingleGame implements Initializable {
 	
 	public void startRound(ActionEvent e) throws IOException {
 
-	    // 1. Read host + port from welcome screen text fields
-	    String host = "127.0.0.1";
-	    if (ipAddress != null && !ipAddress.getText().trim().isEmpty()) {
-	        host = ipAddress.getText().trim();
-	    }
-
-	    int port = 5000; // default
-	    if (importNum != null && !importNum.getText().trim().isEmpty()) {
-	        try {
-	            port = Integer.parseInt(importNum.getText().trim());
-	        } catch (NumberFormatException ex) {
-	            // fall back to default 5000
-	            port = 5000;
-	        }
-	    }
-
-	    // 2. Try a quick connection test BEFORE changing scenes
-	    try (Socket testSocket = new Socket()) {
-	        // 2000 ms timeout so the UI doesn’t hang too long
-	        testSocket.connect(new InetSocketAddress(host, port), 2000);
-	    } catch (IOException ex) {
-	        // Could not connect: stay on welcome/results screen and show an error dialog
-	        Alert alert = new Alert(Alert.AlertType.ERROR);
-	        alert.setTitle("Connection Failed");
-	        alert.setHeaderText("Could not connect to server");
-	        alert.setContentText("Please check the IP address, port number, and make sure the server is running.\n\n"
-	                           + "Details: " + ex.getMessage());
+	    // 1. Make sure we still have an active connection
+	    if (!GamePlayController.hasActiveConnection()) {
+	        Alert alert = new Alert(AlertType.ERROR);
+	        alert.setTitle("No Active Connection");
+	        alert.setHeaderText("There is no active server connection.");
+	        alert.setContentText("Please return to the welcome screen and connect again.");
 	        alert.showAndWait();
-	        return; // <-- do NOT switch scenes
+
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/welcome.fxml"));
+	        Parent rootA = loader.load();
+	        rootA.getStylesheets().add("/styles/welcome.css");
+	        root.getScene().setRoot(rootA);
+	        return;
 	    }
 
-	    // 3. If we get here, connection test succeeded, so load the gamePlay scene
+	    // 2. Reuse the same host/port as the original connection
+	    String host = GamePlayController.getSharedHost();
+	    int port = GamePlayController.getSharedPort();
+
+	    // 3. Load the gamePlay scene again
 	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/gamePlay.fxml"));
 	    Parent root2 = loader.load();
 
-	    // 4. Get the new controller instance for gamePlay.fxml
-	    SingleGame gameController = loader.getController();
+	    // 4. Get the GamePlayController and re-bind the existing connection to its gameLog
+	    GamePlayController controller = loader.getController();
+	    controller.initConnection(host, port);  // reuses sharedConnection, DOES NOT reconnect
 
-	    // 5. Connect this new controller to the server (real ClientConnection thread)
-	    gameController.connectToServer(host, port);
-
-	    // 6. Apply stylesheet and swap the scene root
+	    // 5. Swap scenes
 	    root2.getStylesheets().add("/styles/gamePlay.css");
 	    root.getScene().setRoot(root2);
-        
-        
-        /* THIS NEEDS TO BE FIXED
-        
-        // Create deck of shuffled cards
-        Deck deck1 = new Deck();
-		deck1.shuffle();
-		
-		Card cardA = deck1.draw();
-		Card cardB = deck1.draw();
-		Card cardC = deck1.draw();
-		
-		String path = cardA.toString();
-		
-		card1.setStyle(
-			"-fx-background-image: url('/cards/" + path + ".jpg');" +
-			"-fx-background-size: cover;" +
-			"-fx-background-repeat: no-repeat;" +
-			"-fx-border-color: Cyan;" +
-			"-fx-border-width: 2;"
-		);
-		
-		System.out.println(path);*/
-		
-		//URL url = getClass().getResource("/cards/" + path + ".jpg");
-		//System.out.println(url); // Should not be null
-        
-        
-		
-	
 	}
+
 	
 	public void settle(ActionEvent e) throws IOException{
 		
@@ -254,29 +210,24 @@ public class SingleGame implements Initializable {
         root3.getStylesheets().add("/styles/results.css"); // Set style
         
         root.getScene().setRoot(root3); 
-        
-    
-
-		
-		
-		
-		
 		
 		
 		
 	}
 	
 	
-	public void backToWelcome(ActionEvent e) throws IOException{
-		
-		// Get instance of the loader class
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/welcome.fxml"));
-		Parent rootA = loader.load(); // Load view into parent
-				
-		//GameServer myctr = loader.getController(); // Get controller created by FXMLLoader
-		rootA.getStylesheets().add("/styles/welcome.css"); // Set style
-		        
-		root.getScene().setRoot(rootA);
+	public void backToWelcome(ActionEvent e) throws IOException {
+
+	    // Make sure the client disconnects from the server
+	    GamePlayController.closeSharedConnection();
+
+	    // Get instance of the loader class
+	    FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/welcome.fxml"));
+	    Parent rootA = loader.load(); // Load view into parent
+
+	    rootA.getStylesheets().add("/styles/welcome.css"); // Set style
+
+	    root.getScene().setRoot(rootA);
 	}
 	
 	public void getNewLook(ActionEvent e) throws IOException{
@@ -293,22 +244,6 @@ public class SingleGame implements Initializable {
 		newLookSet = !newLookSet;
 	}
 	
-	public void connectToServer(String host, int port) {
-	    connection = new ClientConnection(host, port, message -> {
-	        Platform.runLater(() -> {
-	            if (gameLog != null) {
-	                gameLog.getItems().add(message);
-	            }
-	        });
-	    });
-	    connection.start();
-	}
-
-	public void sendTestMessage(ActionEvent e) {
-	    if (connection != null) {
-	        connection.send("Hello from client!");
-	    }
-	}
 	
 	
 }

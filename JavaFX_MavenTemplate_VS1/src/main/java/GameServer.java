@@ -129,18 +129,5 @@ public class GameServer implements Initializable{
 	
 	
 	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

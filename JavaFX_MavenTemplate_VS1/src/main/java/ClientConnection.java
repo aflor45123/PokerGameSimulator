@@ -8,7 +8,7 @@ public class ClientConnection extends Thread {
 
     private final String host;
     private final int port;
-    private final Consumer<String> onMessage;
+    private Consumer<String> onMessage;   // <-- NOT final anymore
 
     private Socket socket;
     private ObjectOutputStream out;
@@ -19,6 +19,11 @@ public class ClientConnection extends Thread {
     public ClientConnection(String host, int port, Consumer<String> onMessage) {
         this.host = host;
         this.port = port;
+        this.onMessage = onMessage;
+    }
+
+    // NEW: allow controllers to change where messages go
+    public synchronized void setOnMessage(Consumer<String> onMessage) {
         this.onMessage = onMessage;
     }
 
@@ -35,10 +40,17 @@ public class ClientConnection extends Thread {
                 Object obj = in.readObject();
                 if (obj == null) break;
                 String msg = obj.toString();
-                onMessage.accept(msg);
+
+                Consumer<String> handler = this.onMessage;
+                if (handler != null) {
+                    handler.accept(msg);
+                }
             }
         } catch (Exception e) {
-            onMessage.accept("Connection error: " + e.getMessage());
+            Consumer<String> handler = this.onMessage;
+            if (handler != null) {
+                handler.accept("Connection error: " + e.getMessage());
+            }
         } finally {
             close();
         }
@@ -51,7 +63,10 @@ public class ClientConnection extends Thread {
                 out.flush();
             }
         } catch (IOException e) {
-            onMessage.accept("Send failed: " + e.getMessage());
+            Consumer<String> handler = this.onMessage;
+            if (handler != null) {
+                handler.accept("Send failed: " + e.getMessage());
+            }
         }
     }
 

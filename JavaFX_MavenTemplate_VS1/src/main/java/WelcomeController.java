@@ -19,6 +19,10 @@ import javafx.scene.text.Text;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.net.InetSocketAddress;
+import java.net.Socket;
+
+import javafx.scene.control.Alert;
 
 
 
@@ -85,6 +89,7 @@ public class WelcomeController implements Initializable {
 	@FXML
 	private TextField playWager;
 	
+	
 		
 	
 	@Override
@@ -143,17 +148,78 @@ public class WelcomeController implements Initializable {
 		}
 	}
 	
-	public void startRound(ActionEvent e) throws IOException{
-		
-		//Get instance of the loader class
+	public void startRound(ActionEvent e) throws IOException {
+
+        // 1. Read raw text from the fields
+        String ipText = (ipAddress != null) ? ipAddress.getText().trim() : "";
+        String portText = (importNum != null) ? importNum.getText().trim() : "";
+
+        // 2. Basic "both fields required" validation
+        if (ipText.isEmpty() || portText.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Missing Information");
+            alert.setHeaderText("IP address and port are required");
+            alert.setContentText("Please enter:\n\nIP: 127.0.0.1\nPort: 5000");
+            alert.showAndWait();
+            return;
+        }
+
+        // 3. Validate exact IP and port
+        if (!"127.0.0.1".equals(ipText)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid IP Address");
+            alert.setHeaderText("IP address must be 127.0.0.1");
+            alert.setContentText("You entered: " + ipText + "\n\nPlease use 127.0.0.1 to connect.");
+            alert.showAndWait();
+            return;
+        }
+
+        int port;
+        try {
+            port = Integer.parseInt(portText);
+        } catch (NumberFormatException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Port");
+            alert.setHeaderText("Port must be a number");
+            alert.setContentText("Please enter 5000 as the port.");
+            alert.showAndWait();
+            return;
+        }
+
+        if (port != 5000) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Port");
+            alert.setHeaderText("Port must be 5000");
+            alert.setContentText("You entered: " + port + "\n\nPlease use port 5000 to connect.");
+            alert.showAndWait();
+            return;
+        }
+
+        // 4. Try a quick connection test BEFORE changing scenes
+        try (Socket testSocket = new Socket()) {
+            testSocket.connect(new InetSocketAddress(ipText, port), 2000);
+        } catch (IOException ex) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Connection Failed");
+            alert.setHeaderText("Could not connect to server");
+            alert.setContentText(
+                    "Please make sure the server is running on:\n\n" +
+                    "IP: 127.0.0.1\nPort: 5000\n\nDetails: " + ex.getMessage()
+            );
+            alert.showAndWait();
+            return; // do NOT switch scenes
+        }
+
+        // 5. Only if everything is valid and connection test succeeded, load gameplay
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXML/gamePlay.fxml"));
-        Parent root2 = loader.load(); // Load view into parent
-        
-        //GamePlayController myctr = loader.getController(); // Get controller created by FXMLLoader
-        root2.getStylesheets().add("/styles/gamePlay.css"); // Set style
-        
+        Parent root2 = loader.load();
+
+        GamePlayController controller = loader.getController();
+        controller.initConnection(ipText, port);
+
+        root2.getStylesheets().add("/styles/gamePlay.css");
         root.getScene().setRoot(root2);
-	}
+    }
 	
 	
 	
