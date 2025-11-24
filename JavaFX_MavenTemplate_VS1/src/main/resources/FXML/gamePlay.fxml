@@ -27,6 +27,7 @@
 					<MenuItem text = "Exit" onAction = "#backToWelcome"/>
 					<MenuItem text = "Fresh Start"/>
 					<MenuItem text = "New Look" onAction = "#getNewLook"/>
+					<MenuItem text="Send Test" onAction="#sendTestMessage"/>
 				</Menu>
 			</MenuBar>
 		</HBox>
@@ -51,6 +52,30 @@
 			<!-- Created rectangular backdrop for player's cards' -->
 			<Rectangle fx:id = "rect" width = "500" height = "150" arcWidth = "20" arcHeight = "20"
 				translateY = "100" styleClass = "rect"/>
+			
+			<!-- Created a card1 for dealer -->
+			<StackPane fx:id = "card1" prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateX = "-140" translateY = "-170" styleClass = "card1"/>
+			
+			<!-- Created a card2 for dealer -->
+			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateY = "-170" styleClass = "card2"/>
+			
+			<!-- Created a card3 for dealer -->
+			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateX = "140" translateY = "-170" styleClass = "card3"/>
+				
+			<!-- Created a card4 for player -->
+			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateX = "-140" translateY = "100" styleClass = "card4"/>
+			
+			<!-- Created a card5 for player -->
+			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateY = "100" styleClass = "card5"/>
+			
+			<!-- Created a card6 for player -->
+			<StackPane prefWidth = "80" maxWidth = "80" prefHeight = "110" maxHeight = "110" 
+				translateX = "140" translateY = "100" styleClass = "card6"/>
 			
 			<!-- Set text for Game Log -->
 			<Text fx:id = "title" text = "Game Log" styleClass = "sideTitle" 
